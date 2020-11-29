@@ -1,4 +1,4 @@
-# Feature toggle engine on Cloud Run using Google Sheets
+# Google Sheets as a feature toggle engine running on Cloud Run
 
 I might be stingier than most, but if there is a modern core service that should be free and configurable it's feature toggles. You'll quickly find such SaaS services can cost quite some money, and also be pretty slow. This repo gives you more or less all of the pieces to construct your own feature toggle engine, with Cloud Run (fast, almost free, serverless) and Google Sheets (easy to use, convenient, familiar).
 
