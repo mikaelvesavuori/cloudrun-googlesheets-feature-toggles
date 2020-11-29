@@ -1,0 +1,52 @@
+steps:
+  - name: 'node'
+    entrypoint: 'npm'
+    id: Install
+    args:
+      - 'install'
+    dir: 'src'
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    id: Set secrets
+    args:
+      [
+        '-c',
+        "gcloud secrets versions access latest --secret=${_SECRET_NAME_SERVICE_ACCOUNT_EMAIL} --format='get(payload.data)' | tr '_-' '/+' | base64 -d > email.txt && gcloud secrets versions access latest --secret=${_SECRET_NAME_PRIVATE_KEY} --format='get(payload.data)' | tr '_-' '/+' | base64 -d > key.txt",
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    id: Build
+    args:
+      [
+        '-c',
+        'docker build --build-arg="EMAIL=$(cat email.txt)" --build-arg="KEY=$(cat key.txt)" -t $_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_IMAGE .'
+      ]
+  - name: 'docker'
+    id: Push
+    args: ['push', '$_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_IMAGE']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: Deploy
+    entrypoint: gcloud
+    args:
+      [
+        'run',
+        'deploy',
+        '$_SERVICE_NAME',
+        '--image',
+        '$_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_IMAGE',
+        '--region',
+        '$_REGION',
+        '--platform',
+        'managed',
+        '--memory',
+        '2Gi',
+        '--allow-unauthenticated',
+      ]
+
+substitutions:
+  _REGION: 'europe-north1'
+  _SERVICE_NAME: 'cloudrun-googlesheets-feature-toggles'
+  _IMAGE: 'toggles'
+  _SECRET_NAME_SERVICE_ACCOUNT_EMAIL: 'cloudrun-sheets-toggles-email'
+  _SECRET_NAME_PRIVATE_KEY: 'cloudrun-sheets-toggles-key'
+images: ['$_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_IMAGE']

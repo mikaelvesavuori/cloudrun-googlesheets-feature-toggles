@@ -1,0 +1,12 @@
+FROM node:14-alpine
+
+ARG EMAIL
+ARG KEY
+ENV GOOGLE_SERVICE_ACCOUNT_EMAIL=$EMAIL
+ENV GOOGLE_PRIVATE_KEY=$KEY
+
+WORKDIR /src
+COPY ./src .
+RUN npm install --only=production
+EXPOSE 8080
+CMD npm start

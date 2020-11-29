@@ -1,0 +1,29 @@
+{
+  "name": "cloudrun-googlesheets-feature-toggles",
+  "version": "1.0.0",
+  "description": "Use Google Sheets as a feature toggle engine running on Cloud Run",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "lint": "eslint '*/**/*.{js,mjs,ts}' --quiet --fix"
+  },
+  "author": "Mikael Vesavuori",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^3.8.0",
+    "google-spreadsheet": "^3.0.13"
+  },
+  "keywords": [
+    "gcp",
+    "cloud run",
+    "google sheets",
+    "feature toggles",
+    "feature flags"
+  ],
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.2.1"
+  }
+}
