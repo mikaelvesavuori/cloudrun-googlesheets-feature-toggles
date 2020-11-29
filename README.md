@@ -132,13 +132,13 @@ Run `npm install` or `yarn install`.
 
 ## Develop
 
-Run `npm start` in the `src` folder. You'll need to have `GOOGLE_SERVICE_ACCOUNT_EMAIL` and `GOOGLE_PRIVATE_KEY` in `process.env` for the application to work.
+Run `npm start` in the `src` folder to start the server. You'll need to have `GOOGLE_SERVICE_ACCOUNT_EMAIL` and `GOOGLE_PRIVATE_KEY` in `process.env` for the application to work. Developing locally this way is pretty old-school: no hot-reload or anything, just close and restart when you've rebuilt. For my use this far (initial release), that's hardly been an issue.
 
 Considering that it's a very simple Node app with a Fastify webserver running it locally like that probably won't pose a problem. If you're more of a Docker kind-of-person, you should know that Docker is not currently set up for local development—you'll have to do that on your own if you really want it.
 
 ## Deploy
 
-Set the required `PROJECT_ID` variable in `scripts/vars.sh` to your project ID, then export all the variables. Then run `sh scripts/init.sh` to set up all of the infrastructure and do the first build.
+Set the required `PROJECT_ID` variable in `scripts/vars.sh` to your project ID, set the variables for email and private key (service account), then export all the variables. Then run `sh scripts/init.sh` to set up all of the infrastructure and do the first build.
 
 ## What if I don't want to have all the infra, kind of something more light-weight...?
 
