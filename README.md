@@ -16,7 +16,7 @@ The toggle format is inspired by [Azure App Config](https://azure.microsoft.com/
 
 **Notes**
 
-To use this repo, you will need to have a Google Sheets document with the correct formatting (three headers: "Key", "Value", "Groups"). There is also a limit of one (1) page. The first page will be picked from your document when trying to access your toggles. Currently there is a hard-coded limit of 100 rows when it's trying to map your toggles. If you want more, go ahead and raise it in `GoogleSheetsFeatureToggles.mjs`, as per:
+To use this repo, you will need to have a Google Sheets document with the correct formatting (three headers: `Key`, `Value`, `Group`). There is also a limit of one (1) page. The first page will be picked from your document when trying to access your toggles. Currently there is a hard-coded limit of 100 rows when it's trying to map your toggles. If you want more, go ahead and raise it in `GoogleSheetsFeatureToggles.mjs`, as per:
 
 ```
 return await sheet.getRows({
@@ -80,11 +80,15 @@ GET https://YOUR_APP.a.run.app?sheet={GOOGLE_SHEETS_DOCUMENT_ID}&toggles={COMMA_
 
 ## How to set up your Google Sheets document
 
-To use this repo, you will need to have a Google Sheets document with the correct formatting (three headers: "Key", "Value", "Groups").
+To use this repo, you will need to have a Google Sheets document with the correct formatting (three headers: `Key`, `Value`, `Group`).
 
 Refer to the below, for a (very basic!) formatting example:
 
 ![Google Sheets formatting](docs/sheets.png)
+
+## How to set rollout percentage on groups
+
+You can set your "rollout percentage" by adding `={PERCENTAGE}` after a group name, like this: `Developers=50` (would mean the Developers group gets 50% rollout). Add more groups by comma-separating them, like: `Developers,UAT=50`. If a rollout percentage is missing like in the just-mentioned example, a value of `100` is automatically added.
 
 ## How to set up your service account
 
