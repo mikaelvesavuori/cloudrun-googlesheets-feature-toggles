@@ -1,4 +1,8 @@
-export PROJECT_ID="playground-292612" # EDIT THIS!
+# These three must be set to your values!
+export PROJECT_ID=""
+export SA_EMAIL=""
+export SA_KEY=""
+
 export REPO_NAME="cloudrun-googlesheets-feature-toggles"
 export RUN_SERVICE_NAME="cloudrun-googlesheets-feature-toggles"
 export LOCATION="europe-north1"

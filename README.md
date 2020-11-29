@@ -31,7 +31,7 @@ return await sheet.getRows({
 - You are logged in, on Google Cloud Platform
 - You have credentials that can deploy and run applications on Cloud Run (including building them on Cloud Build and using any of the other services listed above)
 - You have a service account set up for Google Sheets, and ensured that the service account is invited to your Google Sheets "feature toggles" document (follow steps in the section `How to set up your Google Sheets document`)
-- You've put in your own variables and settings in `scripts/vars.sh`
+- You've put in your own variables and settings in `scripts/vars.sh` (project ID; service account email; private key for service account)
 
 ## Usage example
 
@@ -96,7 +96,7 @@ Follow the guide at [https://theoephraim.github.io/node-google-spreadsheet/#/get
 
 ### Add values to local env + Secret Manager
 
-Once you have the values, put them in `scripts/init.sh` (you will need the values to be exported to Secret Manager); look for the `gcloud secrets create` commands to find the spot.
+Once you have the values, put them in `scripts/vars.sh` (you will need the values to be exported to Secret Manager); look for `SA_EMAIL` and `SA_KEY` at the top.
 
 For local development you will need to export them, or do something like the below (with your values) inside of your application code:
 
@@ -109,9 +109,20 @@ process.env.GOOGLE_PRIVATE_KEY = 'key';
 
 Finally, invite the service account email to your Google Sheets document to grant access.
 
-## Suggestion: Cache your toggles
+## Suggestions
+
+### Cache your toggles
 
 You should cache your toggles so you don't have wait every time you request them. A `fetchedAt` key comes with the response object, so you could use that if you wanted to cache toggles locally.
+
+### Lock down access
+
+Consider using [Identity-Aware Proxy](https://cloud.google.com/iap) or something, maybe even just an API-key, to lock down the currently unauthenticated (open) access.
+
+Examples you could butcher:
+
+- [Demo: GCP API Gateway fronting a GraphQL API on Cloud Run, secured with Identity-Aware Proxy](https://github.com/mikaelvesavuori/gcp-api-gateway-run-gql-auth-demo)
+- [Using Google Cloud Functions with Cloud Endpoints for authorization (API key)](https://github.com/mikaelvesavuori/gcp-cloud-endpoints-authed-function)
 
 ## Install
 

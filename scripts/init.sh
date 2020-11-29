@@ -22,8 +22,8 @@ gcloud beta builds triggers create cloud-source-repositories \
   --build-config "cloudbuild.yaml"
 
 # Create secrets
-echo -n "YOUR SERVICE ACCOUNT EMAIL" | gcloud secrets create cloudrun-sheets-toggles-email --replication-policy="automatic" --data-file=-
-echo -n "YOUR SERVICE ACCOUNT (PRIVATE) KEY" | gcloud secrets create cloudrun-sheets-toggles-key --replication-policy="automatic" --data-file=-
+echo -n $SA_EMAIL | gcloud secrets create cloudrun-sheets-toggles-email --replication-policy="automatic" --data-file=-
+echo -n $SA_KEY | gcloud secrets create cloudrun-sheets-toggles-key --replication-policy="automatic" --data-file=-
 
 # Clean git history
 rm -rf .git
