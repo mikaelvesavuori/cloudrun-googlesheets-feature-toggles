@@ -33,9 +33,7 @@ return await sheet.getRows({
 - You have a service account set up for Google Sheets, and ensured that the service account is invited to your Google Sheets "feature toggles" document (follow steps in the section `How to set up your Google Sheets document`)
 - You've put in your own variables and settings in `scripts/vars.sh`
 
-## Usage
-
-Example: https://cloudrun-googlesheets-feature-toggles-c246uu3j7q-lz.a.run.app?sheet=1dqb8nbN2mBJjI10cKozPhQv8085u7_FQ7nS71htSXhI&toggles=dataValue,qwerty
+## Usage example
 
 ```
 GET https://YOUR_APP.a.run.app?sheet={GOOGLE_SHEETS_DOCUMENT_ID}&toggles={COMMA_SEPARATED_LIST_OF_KEYS}
@@ -92,7 +90,11 @@ You can set your "rollout percentage" by adding `={PERCENTAGE}` after a group na
 
 ## How to set up your service account
 
+### Create service account
+
 Follow the guide at [https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account](https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account) to understand how to create a service account and get your 1) _private key_ and 2) _unique service account email_.
+
+### Add values to local env + Secret Manager
 
 Once you have the values, put them in `scripts/init.sh` (you will need the values to be exported to Secret Manager); look for the `gcloud secrets create` commands to find the spot.
 
@@ -102,6 +104,10 @@ For local development you will need to export them, or do something like the bel
 process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL = 'email';
 process.env.GOOGLE_PRIVATE_KEY = 'key';
 ```
+
+### Invite service account email to document
+
+Finally, invite the service account email to your Google Sheets document to grant access.
 
 ## Suggestion: Cache your toggles
 
