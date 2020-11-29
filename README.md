@@ -47,11 +47,11 @@ GET https://YOUR_APP.a.run.app?sheet={GOOGLE_SHEETS_DOCUMENT_ID}&toggles={COMMA_
       "groups": [
         {
           "name": "Developers",
-          "rolloutPercentage": "100"
+          "rolloutPercentage": 100
         },
         {
           "name": "UAT",
-          "rolloutPercentage": "50"
+          "rolloutPercentage": 50
         }
       ]
     },
@@ -61,11 +61,11 @@ GET https://YOUR_APP.a.run.app?sheet={GOOGLE_SHEETS_DOCUMENT_ID}&toggles={COMMA_
       "groups": [
         {
           "name": "Developers",
-          "rolloutPercentage": "100"
+          "rolloutPercentage": 100
         },
         {
           "name": "UAT",
-          "rolloutPercentage": "100"
+          "rolloutPercentage": 100
         }
         {
           "name": "Public",
