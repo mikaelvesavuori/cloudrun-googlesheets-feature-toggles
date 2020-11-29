@@ -27,8 +27,8 @@ return await sheet.getRows({
 
 ## Prerequisites
 
-- You have a Google Cloud account
-- You are logged in, on Google Cloud Platform
+- You have a Google Cloud Platform account
+- You are logged-in on the Google Cloud Platform
 - You have credentials that can deploy and run applications on Cloud Run (including building them on Cloud Build and using any of the other services listed above)
 - You have a service account set up for Google Sheets, and ensured that the service account is invited to your Google Sheets "feature toggles" document (follow steps in the section `How to set up your Google Sheets document`)
 - You've put in your own variables and settings in `scripts/vars.sh` (project ID; service account email; private key for service account)
@@ -113,7 +113,9 @@ Finally, invite the service account email to your Google Sheets document to gran
 
 ### Cache your toggles
 
-You should cache your toggles so you don't have wait every time you request them. A `fetchedAt` key comes with the response object, so you could use that if you wanted to cache toggles locally.
+You should cache your toggles so you don't have to wait every time you request them. A `fetchedAt` key comes with the response object, so you could use that if you wanted to cache toggles locally.
+
+From a performance standpoint, Cloud Run with the given configuration (2GB RAM, running Node 14 Alpine) is going to be very fast. You typical response time will probably be around ~1 second or so, and I'd attribute around 80-90% of that wait to the Google Sheets integration. Point: Try to eliminate as much as possible of the need to go "all the way" back to Sheets that you possibly can.
 
 ### Lock down access
 
